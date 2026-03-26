@@ -18,7 +18,6 @@ npm run dev
 ## Build + test
 ```bash
 npm run test
-npm run typecheck
 npm run build
 ```
 
@@ -58,10 +57,3 @@ When older local data is detected, records are normalized and kept where possibl
 
 ## Sample import file
 Use `sample-data/sample-records.json` to validate import flow.
-
-## Vercel deploy
-This project now deploys on Vercel with default Vite settings:
-- Framework preset: **Vite**
-- Install command: **npm install**
-- Build command: **npm run build**
-- Output directory: **dist**
