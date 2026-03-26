@@ -13,4 +13,17 @@ describe('generateWhiteSpace', () => {
     expect(cards.length).toBeGreaterThan(0);
     expect(cards[0].motion.length).toBeGreaterThan(0);
   });
+
+  it('maps vendor/reporting signals to specific generic motions', () => {
+    const record = makeDefaultRecord();
+    const tech = record.sections.find((section) => section.id === 'technology')!;
+    tech.items[3].status = 'assumed';
+    tech.items[4].status = 'assumed';
+
+    const cards = generateWhiteSpace(record);
+    const motions = cards.map((card) => card.motion);
+
+    expect(motions).toContain('Vendor consolidation');
+    expect(motions).toContain('Reporting maturity');
+  });
 });

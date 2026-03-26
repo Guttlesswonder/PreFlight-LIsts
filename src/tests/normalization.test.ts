@@ -21,6 +21,7 @@ describe('normalization and import safety', () => {
     const imported = parseJsonImport('[{"name":"One"},{"name":"Two"}]');
     expect(imported.length).toBe(2);
     expect(imported[0].sections.length).toBe(3);
+    expect(imported[0].sections.reduce((total, section) => total + section.items.length, 0)).toBe(15);
   });
 
   it('filters across question and owner', () => {

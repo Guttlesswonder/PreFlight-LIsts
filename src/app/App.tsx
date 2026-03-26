@@ -6,13 +6,13 @@ import { ChecklistSection } from '../components/ChecklistSection';
 import { ReadinessSummary } from '../components/ReadinessSummary';
 import { WhiteSpacePanel } from '../components/WhiteSpacePanel';
 import { NotesPanel } from '../components/NotesPanel';
-import { makeDefaultRecord } from '../data/defaultRecord';
 import { exportRecordJson, exportAllJson } from '../export/exportJson';
 import { exportRecordJs, exportAllJs } from '../export/exportJs';
 import { exportRecordExcel } from '../export/exportExcel';
 import { parseJsImport } from '../import/importJs';
 import { parseJsonImport } from '../import/importJson';
 import { filterItems } from '../logic/filters';
+import { createRecordFromTemplate, duplicateRecord } from '../logic/records';
 import { normalizeAppState } from '../logic/normalization';
 import { calculateReadiness, flattenItems } from '../logic/readiness';
 import { generateWhiteSpace } from '../logic/whitespace';
@@ -79,7 +79,7 @@ export const App = () => {
   };
 
   const onNewRecord = () => {
-    const record = makeDefaultRecord(`Account ${state.records.length + 1}`);
+    const record = createRecordFromTemplate(`Account ${state.records.length + 1}`);
     updateState((current) => ({
       records: [...current.records, record],
       activeRecordId: record.id
@@ -87,13 +87,7 @@ export const App = () => {
   };
 
   const onDuplicateRecord = () => {
-    const clone = {
-      ...activeRecord,
-      id: makeDefaultRecord().id,
-      name: `${activeRecord.name} (Copy)`,
-      createdAt: isoNow(),
-      updatedAt: isoNow()
-    };
+    const clone = duplicateRecord(activeRecord);
     updateState((current) => ({
       records: [...current.records, clone],
       activeRecordId: clone.id

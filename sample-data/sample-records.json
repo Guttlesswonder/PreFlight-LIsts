@@ -4,27 +4,44 @@
     "name": "Northwind Logistics",
     "createdAt": "2026-03-26T00:00:00.000Z",
     "updatedAt": "2026-03-26T00:00:00.000Z",
-    "notes": "Quarterly checkpoint account.",
+    "notes": "Lean AM growth preflight sample.",
     "sections": [
       {
         "id": "people",
         "name": "People",
-        "description": "Stakeholder ownership, enablement coverage, and accountability.",
+        "description": "Capture the people signal that tells the AM who can sponsor change, who owns execution, & where expansion may stall.",
         "items": [
-          {
-            "id": "p1",
-            "question": "Are executive sponsors identified and engaged?",
-            "why": "Sponsor commitment drives prioritization and internal adoption.",
-            "status": "assumed",
-            "answer": "Believed yes, no direct confirmation from COO.",
-            "owner": "AM Team",
-            "dueDate": "2026-04-15",
-            "risk": "Expansion may stall if sponsor is not active"
-          }
+          {"id":"p1","question":"Who are the key leaders across executive, clinical, operations, finance, & IT?","why":"Shows who matters in evaluation, adoption, & expansion.","status":"assumed","answer":"Leadership map started.","owner":"Alex","dueDate":"2026-04-10","risk":"Missing stakeholders weakens expansion strategy."},
+          {"id":"p2","question":"Who is the executive sponsor for change or growth?","why":"No sponsor usually means no momentum for expansion.","status":"unknown","answer":"","owner":"","dueDate":"","risk":"No sponsor means no internal momentum."},
+          {"id":"p3","question":"Who owns rollout after purchase?","why":"Execution ownership determines whether adoption can stick.","status":"confirmed","answer":"Ops director.","owner":"AM Team","dueDate":"","risk":"Adoption risk stays high even if the sale closes."},
+          {"id":"p4","question":"Which functions are centralized versus local?","why":"Centralization shows where one motion can scale across the group.","status":"unknown","answer":"","owner":"","dueDate":"","risk":"The team may pitch the wrong level of solution."},
+          {"id":"p5","question":"Who outside the organization influences strategic direction?","why":"Hidden influencers often shape priorities, timing, & objections.","status":"assumed","answer":"PE board appears influential.","owner":"","dueDate":"","risk":"Hidden decision pressure may delay or derail the motion."}
         ]
       },
-      { "id": "process", "name": "Process", "description": "", "items": [] },
-      { "id": "technology", "name": "Technology", "description": "", "items": [] }
+      {
+        "id": "process",
+        "name": "Process",
+        "description": "Capture the process signal that shows where work is manual, fragmented, inconsistent, or dependent on third parties.",
+        "items": [
+          {"id":"pr1","question":"Do they standardize workflows across locations?","why":"Standardization signals whether change can scale cleanly.","status":"unknown","answer":"","owner":"","dueDate":"","risk":"Rollout effort & adoption risk are harder to predict."},
+          {"id":"pr2","question":"Which workflows vary most by office?","why":"Variation often creates friction, inefficiency, & white space.","status":"unknown","answer":"","owner":"","dueDate":"","risk":"Operational inconsistency may block scale."},
+          {"id":"pr3","question":"How is patient communication managed today?","why":"Shows whether engagement is fragmented, manual, or vendor dependent.","status":"at-risk","answer":"Different vendors per region.","owner":"","dueDate":"","risk":"Engagement gaps & vendor overlap may be missed."},
+          {"id":"pr4","question":"How is insurance handled today?","why":"Insurance workflow maturity affects operational fit & service needs.","status":"assumed","answer":"Mostly manual verification.","owner":"","dueDate":"","risk":"RCM related pain points may be misunderstood."},
+          {"id":"pr5","question":"How are payments handled today?","why":"Payment friction often reveals automation or platform opportunity.","status":"unknown","answer":"","owner":"","dueDate":"","risk":"Automation or platform fit may be mis-scoped."}
+        ]
+      },
+      {
+        "id": "technology",
+        "name": "Technology",
+        "description": "Capture the technology signal that shows what systems are in place, what is fragmented, what vendors are active, & where reporting or adoption gaps exist.",
+        "items": [
+          {"id":"t1","question":"What products do they already own from us?","why":"Shows current footprint, adoption depth, & adjacent expansion paths.","status":"confirmed","answer":"Two core modules live.","owner":"","dueDate":"","risk":"The team may miss adoption & expansion opportunities."},
+          {"id":"t2","question":"What PMS systems are in use today?","why":"Mixed systems usually create complexity & opportunity.","status":"assumed","answer":"Two PMS across regions.","owner":"","dueDate":"","risk":"Platform complexity may be underestimated."},
+          {"id":"t3","question":"What imaging platforms are in use today?","why":"Imaging diversity may affect integrations, workflow, & standardization.","status":"unknown","answer":"","owner":"","dueDate":"","risk":"Integration or workflow needs may be missed."},
+          {"id":"t4","question":"Which third party vendors are active, & what job does each do?","why":"Vendor sprawl is often the clearest white space map.","status":"at-risk","answer":"Vendor list incomplete.","owner":"","dueDate":"","risk":"Displacement opportunities may be missed."},
+          {"id":"t5","question":"How are KPIs & reporting handled today?","why":"Manual reporting is a strong signal for analytics or automation opportunity.","status":"unknown","answer":"","owner":"","dueDate":"","risk":"Analytics & visibility gaps may remain invisible."}
+        ]
+      }
     ]
   }
 ]

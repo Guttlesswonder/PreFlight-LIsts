@@ -1,10 +1,14 @@
 import type { AccountRecord, WhiteSpaceCard } from '../types';
 import { makeId } from '../utils/ids';
 
-const motionMap: Record<string, string> = {
-  people: 'Adoption support',
-  process: 'Workflow automation',
-  technology: 'Analytics & visibility'
+const pickMotion = (lens: string, question: string, status: string): string => {
+  if (status === 'at-risk') return 'Operational consistency';
+  const lowerQuestion = question.toLowerCase();
+  if (lowerQuestion.includes('vendor')) return 'Vendor consolidation';
+  if (lowerQuestion.includes('kpi') || lowerQuestion.includes('reporting')) return 'Reporting maturity';
+  if (lens === 'People') return 'Adoption support';
+  if (lens === 'Process') return 'Workflow automation';
+  return 'Analytics & visibility';
 };
 
 export const generateWhiteSpace = (record: AccountRecord): WhiteSpaceCard[] => {
@@ -19,10 +23,7 @@ export const generateWhiteSpace = (record: AccountRecord): WhiteSpaceCard[] => {
           title: `${section.name} gap: ${item.question}`,
           signal: item.status,
           why: item.why,
-          motion:
-            item.status === 'at-risk'
-              ? 'Operational consistency'
-              : motionMap[section.id] ?? 'Reporting maturity'
+          motion: pickMotion(section.name, item.question, item.status)
         });
       }
     }

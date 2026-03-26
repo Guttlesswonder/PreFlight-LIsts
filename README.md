@@ -21,6 +21,14 @@ npm run test
 npm run build
 ```
 
+## Lean audit structure (starter template)
+The starter record contains exactly **15 editable checklist items**:
+- **People (5)**: leaders, sponsor, rollout owner, centralized vs local, outside influencers
+- **Process (5)**: workflow standardization, office variation, patient comms, insurance, payments
+- **Technology (5)**: owned products, PMS stack, imaging stack, third-party vendors, KPI/reporting
+
+Each item starts with practical default **why** and **risk** guidance and can be edited per record.
+
 ## Key behavior
 - Multiple saved records with active record selector.
 - New / duplicate / rename / delete (cannot delete the last record).
@@ -28,7 +36,7 @@ npm run build
 - Editable checklist cards for status, answer, owner, due date, risk, question, and why.
 - Search + status filters in active lens.
 - White Space cards generated from non-confirmed gaps.
-- Readiness summary and issue panel.
+- Readiness summary focused on Signal Score, Expansion Readiness, and Adoption Readiness.
 - Import (`.json`, constrained `.js`) and export (single/all JSON, optional JS, Excel workbook tabs).
 
 ## Import/Export notes
@@ -43,6 +51,9 @@ npm run build
 4. Technology
 5. White Space
 6. Open Issues
+
+## Migration note
+When older local data is detected, records are normalized and kept where possible. New records always start from the lean 15-item template.
 
 ## Sample import file
 Use `sample-data/sample-records.json` to validate import flow.
