@@ -59,7 +59,6 @@ When older local data is detected, records are normalized and kept where possibl
 ## Sample import file
 Use `sample-data/sample-records.json` to validate import flow.
 
-
 ## Vercel deploy
 - Recommended build command: `npm run build:vercel` (or `npm run build`).
 - Output directory: `dist`.
