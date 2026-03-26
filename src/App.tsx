@@ -17,6 +17,7 @@ function App() {
   const [state, setState] = useState(() => loadState(CHECKLIST_ITEMS));
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<(typeof FILTERS)[number]>('All');
+  const [activeSection, setActiveSection] = useState(CHECKLIST_SECTIONS[0]);
 
   const activeDeal = state.deals.find((deal) => deal.id === state.activeDealId) as Deal;
 
@@ -33,19 +34,28 @@ function App() {
     updateState(next);
   };
 
+  const sectionStats = useMemo(
+    () =>
+      CHECKLIST_SECTIONS.map((section) => {
+        const items = CHECKLIST_ITEMS.filter((item) => item.section === section);
+        const addressed = items.filter((item) => {
+          const status = activeDeal.responses[item.id]?.status ?? 'Unknown';
+          return status !== 'Unknown';
+        }).length;
+        return { section, addressed, total: items.length };
+      }),
+    [activeDeal.responses]
+  );
+
   const filteredItems = useMemo(() => {
     return CHECKLIST_ITEMS.filter((item) => {
+      if (item.section !== activeSection) return false;
       const responseStatus = activeDeal.responses[item.id]?.status ?? 'Unknown';
       const matchesSearch = `${item.section} ${item.prompt}`.toLowerCase().includes(search.toLowerCase());
       const matchesStatus = statusFilter === 'All' || responseStatus === statusFilter;
       return matchesSearch && matchesStatus;
     });
-  }, [activeDeal.responses, search, statusFilter]);
-
-  const groupedItems = useMemo(
-    () => CHECKLIST_SECTIONS.map((section) => ({ section, items: filteredItems.filter((item) => item.section === section) })).filter((s) => s.items.length),
-    [filteredItems]
-  );
+  }, [activeDeal.responses, activeSection, search, statusFilter]);
 
   const overall = summarizeReadiness(CHECKLIST_ITEMS, activeDeal.responses);
   const sales = summarizeReadiness(CHECKLIST_ITEMS, activeDeal.responses, 'Sales Agreement');
@@ -77,12 +87,24 @@ function App() {
         <h1 className="text-2xl font-bold">Pre Flight Checklist App</h1>
         <p className="text-sm text-slate-600">Local-only deal readiness checklist with export tooling.</p>
       </header>
-      <div className="grid gap-4 lg:grid-cols-[250px,1fr]">
-        <Sidebar
-          deals={state.deals}
-          activeDealId={state.activeDealId}
-          onSelect={(id) => updateState({ ...state, activeDealId: id })}
-        />
+
+      <section className="mb-4 rounded-xl border border-slate-200 bg-white p-4">
+        <label className="mb-1 block text-sm font-medium text-slate-700">Deal file</label>
+        <select
+          className="w-full rounded border p-2 md:max-w-md"
+          value={state.activeDealId}
+          onChange={(e) => updateState({ ...state, activeDealId: e.target.value })}
+        >
+          {state.deals.map((deal) => (
+            <option key={deal.id} value={deal.id}>
+              {deal.meta.name || 'Untitled deal'}
+            </option>
+          ))}
+        </select>
+      </section>
+
+      <div className="grid gap-4 lg:grid-cols-[300px,1fr]">
+        <Sidebar sections={sectionStats} activeSection={activeSection} onSelect={setActiveSection} />
         <main className="space-y-4">
           <DealToolbar
             meta={activeDeal.meta}
@@ -125,7 +147,7 @@ function App() {
             <div className="mb-3 flex flex-wrap gap-2">
               <input
                 className="min-w-[240px] flex-1 rounded border p-2"
-                placeholder="Search checklist items"
+                placeholder={`Search in ${activeSection}`}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -137,21 +159,18 @@ function App() {
                 ))}
               </select>
             </div>
-            <div className="space-y-4">
-              {groupedItems.map(({ section, items }) => (
-                <div key={section} className="space-y-2">
-                  <h3 className="text-base font-semibold">{section}</h3>
-                  {items.map((item) => (
-                    <SectionItemCard
-                      key={item.id}
-                      item={item}
-                      response={activeDeal.responses[item.id]}
-                      onStatusChange={(status) => onResponseStatus(item.id, status)}
-                      onNotesChange={(notes) => onResponseNotes(item.id, notes)}
-                    />
-                  ))}
-                </div>
+            <div className="space-y-2">
+              <h3 className="text-base font-semibold">{activeSection}</h3>
+              {filteredItems.map((item) => (
+                <SectionItemCard
+                  key={item.id}
+                  item={item}
+                  response={activeDeal.responses[item.id]}
+                  onStatusChange={(status) => onResponseStatus(item.id, status)}
+                  onNotesChange={(notes) => onResponseNotes(item.id, notes)}
+                />
               ))}
+              {!filteredItems.length && <p className="text-sm text-slate-500">No items match this filter.</p>}
             </div>
           </section>
 

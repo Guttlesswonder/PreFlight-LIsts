@@ -1,27 +1,35 @@
-import type { Deal } from '../types';
-
-interface SidebarProps {
-  deals: Deal[];
-  activeDealId: string;
-  onSelect: (id: string) => void;
+interface SectionStat {
+  section: string;
+  addressed: number;
+  total: number;
 }
 
-export function Sidebar({ deals, activeDealId, onSelect }: SidebarProps) {
+interface SidebarProps {
+  sections: SectionStat[];
+  activeSection: string;
+  onSelect: (section: string) => void;
+}
+
+export function Sidebar({ sections, activeSection, onSelect }: SidebarProps) {
   return (
-    <aside className="space-y-2 rounded-xl border border-slate-200 bg-white p-3">
-      <h2 className="text-sm font-semibold text-slate-700">Deals</h2>
-      {deals.map((deal) => (
-        <button
-          key={deal.id}
-          onClick={() => onSelect(deal.id)}
-          className={`w-full rounded-lg px-3 py-2 text-left text-sm ${
-            activeDealId === deal.id ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-800 hover:bg-slate-200'
-          }`}
-        >
-          <div className="font-medium">{deal.meta.name}</div>
-          <div className="text-xs opacity-80">{deal.meta.sfdcRef || 'No SFDC ref'}</div>
-        </button>
-      ))}
+    <aside className="space-y-2">
+      {sections.map((item) => {
+        const active = item.section === activeSection;
+        return (
+          <button
+            key={item.section}
+            onClick={() => onSelect(item.section)}
+            className={`w-full rounded-2xl border px-4 py-3 text-left ${
+              active ? 'border-slate-900 bg-slate-950 text-white' : 'border-slate-300 bg-slate-100 text-slate-900'
+            }`}
+          >
+            <p className="font-semibold">{item.section}</p>
+            <p className={`mt-1 text-sm ${active ? 'text-slate-200' : 'text-slate-600'}`}>
+              {item.addressed}/{item.total} addressed
+            </p>
+          </button>
+        );
+      })}
     </aside>
   );
 }
