@@ -1,0 +1,30 @@
+[
+  {
+    "id": "sample-record-1",
+    "name": "Northwind Logistics",
+    "createdAt": "2026-03-26T00:00:00.000Z",
+    "updatedAt": "2026-03-26T00:00:00.000Z",
+    "notes": "Quarterly checkpoint account.",
+    "sections": [
+      {
+        "id": "people",
+        "name": "People",
+        "description": "Stakeholder ownership, enablement coverage, and accountability.",
+        "items": [
+          {
+            "id": "p1",
+            "question": "Are executive sponsors identified and engaged?",
+            "why": "Sponsor commitment drives prioritization and internal adoption.",
+            "status": "assumed",
+            "answer": "Believed yes, no direct confirmation from COO.",
+            "owner": "AM Team",
+            "dueDate": "2026-04-15",
+            "risk": "Expansion may stall if sponsor is not active"
+          }
+        ]
+      },
+      { "id": "process", "name": "Process", "description": "", "items": [] },
+      { "id": "technology", "name": "Technology", "description": "", "items": [] }
+    ]
+  }
+]
