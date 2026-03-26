@@ -18,7 +18,6 @@ npm run dev
 ## Build + test
 ```bash
 npm run test
-npm run typecheck
 npm run build
 ```
 
@@ -58,8 +57,3 @@ When older local data is detected, records are normalized and kept where possibl
 
 ## Sample import file
 Use `sample-data/sample-records.json` to validate import flow.
-
-## Vercel deploy
-- Recommended build command: `npm run build:vercel` (or `npm run build`).
-- Output directory: `dist`.
-- `build:vercel` intentionally uses `vite build` to avoid TypeScript project-reference checks blocking deploy previews.
